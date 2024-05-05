@@ -37,11 +37,16 @@ button {
 }
 
 .content {
-  flex: 1;
+  /* flex: 1; or turn of flex-grow and increase flex-basis*/
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
   gap: 16px;
 }
 

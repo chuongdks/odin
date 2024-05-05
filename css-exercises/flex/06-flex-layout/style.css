@@ -5,6 +5,11 @@ body {
   margin: 0;
   overflow: hidden;
   font-family: Roboto, sans-serif;
+  
+  /* Divide Header, Content, Footer into 3 parts and add space btw them */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 img {
@@ -16,6 +21,9 @@ button {
   border: none;
   border-radius: 8px;
   background: #eee;
+
+  /* Add padding for the button  */
+  padding: 8px 16px;
 }
 
 input {
@@ -23,4 +31,46 @@ input {
   border-radius: 16px;
   padding: 8px 24px;
   width: 400px;
+}
+
+/* SOLUTION */
+ul {
+  display: flex;
+  
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  gap: 10px;
+}
+
+/* Should use ul type instead of .left-links, .right-links since they use the same*/
+/* .left-links, .right-links{
+  display: flex;
+  gap: 10px;
+} */
+
+.header, .footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.footer {
+  background-color: #eeeeee;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 16px;
+}
+
+/* Decorate the anchor text*/
+a {
+  color: #666;
+  text-decoration: none;
 }
