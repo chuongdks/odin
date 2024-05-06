@@ -82,6 +82,11 @@ body .main-header {
             align-items: center;
         }
 
+        .header-2-image img {
+            height: auto;
+            width: 600px;
+        }
+
 button {
     width: 111px;
     background: royalblue;
@@ -122,8 +127,19 @@ button {
                 border: 5px solid #3882f6;
                 width: 180px;
                 height: 180px; 
+
+                display: flex;
+
+                justify-content: center;
+                align-items: center;
             }
-            
+
+            .box img {
+                height: 165px;
+                width: 165px;
+                object-fit: cover;
+            }
+
             .box-info {
                 color: #79818b;
             }
