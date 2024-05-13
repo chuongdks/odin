@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // add7 function
+    let add7  = (num) => num + 7;
+    alert(add7(2));
+
+    // multiply function
+    let multiply  = (num1, num2) => num1 * num2;
+    alert(multiply(3,2));    
+
+    // capitalize that takes a string and returns that string with only the first letter capitalized
+    function capitalize(text)
+    {
+      // firstCharCapitalize = text.charAt(0).toUpperCase();
+      // restOfText = text.slice(1);
+      // capText = '$(firstCharCapitalize)$(restOfText)' // Alternative ways
+
+      capText = text.charAt(0).toUpperCase() + text.slice(1);
+      return capText;
+    }
+    alert(capitalize("hello"));
+    alert(capitalize("Fuck"));
+
+    // lastLetter returns the very last letter of that string: 
+    let lastLetter = (text) => text.charAt(text.length-1);
+    alert(lastLetter("abcsdw"));
+
+  </script>
+</body>
+</html>
