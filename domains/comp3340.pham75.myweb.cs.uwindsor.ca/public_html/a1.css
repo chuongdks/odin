@@ -1,0 +1,19 @@
+body {
+    background-color:  #663;
+    color: #66A;
+}
+h1 {
+    text-align: center;
+}
+.header-images img{
+    height: 640px;
+    width: 480px;
+}
+
+table, th, td {
+    border:1px solid black;
+}
+
+tr {
+    background-color: #3D3;
+}
