@@ -2,9 +2,11 @@ body {
     background-color:  #663;
     color: #66A;
 }
+
 h1 {
     text-align: center;
 }
+
 .header-images img{
     height: 640px;
     width: 480px;
