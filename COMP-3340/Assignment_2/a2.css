@@ -12,11 +12,9 @@ body {
     flex-direction: column;
 }
 
-header { order: 0; }
-.midsection { order: 1; }
-footer { order: 2; }
-
 header {
+    order: 0; 
+
     color: #FFF;
     background-color: #770;
     border-radius: 0.5em;
@@ -24,6 +22,8 @@ header {
 }
 
 .midsection {
+    order: 1;
+
     display: flex;
     flex-direction: row-reverse;
 }
@@ -67,6 +67,8 @@ header {
 }
 
 footer {
+    order: 2; 
+
     color: #FFF;
     background-color: #077;
     border-radius: 0.5em; 
