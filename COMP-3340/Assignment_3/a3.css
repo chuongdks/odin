@@ -1,0 +1,122 @@
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.centered-vertically {
+    margin: 0;
+
+    position: relative;
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+.centered-horizontally {
+    margin: 0;
+
+    position: relative;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+#ad {
+    margin: 0;
+    padding: 1.5em;
+    background-color: #070;
+    color: #DDD;
+    border-radius: 0.5em;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.price span {
+    margin-top: 0;
+}
+
+.price .price-currency {
+    font-size: 2rem;
+}
+
+.price .price-amount-dollar {
+    font-size: 4rem;
+}
+
+.price .price-amount-cents {
+    font-size: 1.5rem;
+    align-self: center;
+}
+
+#ad .button {
+    display: block;
+    background-color: #AFA;
+    color: #444;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0.5em 1em;
+}
+
+#login {
+    margin: 0;
+    padding: 1.5em;
+    background-color: #707;
+    border-radius: 0.5em;
+    color: #FF0;
+    width: 20em;
+    font-weight: bold;
+}
+
+#login h1 {
+    margin-top: 0;
+    font-size: .9em;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#login input:not([type=checkbox]):not([type=radio]) {
+    display: block;
+    width: 100%;
+    margin-top: 0;
+}
+
+#login button {
+    margin-top: 1em;
+    border: 3px solid #00C;
+    border-radius: 0.5em;
+    color: #FFF;
+    background-color: #C00;
+    padding: 0.5em 1em;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+#login button:hover, 
+#login button:focus {
+    background-color: #FFF;
+    color: #00C;
+}
+
+#login input {
+    border-color: #DD0;
+    color: #700;
+    background-color: #DD0;
+}
+
+#ad {
+    order: 1;
+}
+
+#login {
+    order: 0;
+}
