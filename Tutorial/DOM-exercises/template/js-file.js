@@ -40,7 +40,7 @@ header1.textContent = "I'm in a div";
 divBlackPink.appendChild(header1);
 
 const para2 = document.createElement("p");
-para2.textContent = "ME TOO!";
 divBlackPink.appendChild(para2);
+para2.textContent = "ME TOO!";
 
 container.appendChild(divBlackPink);
