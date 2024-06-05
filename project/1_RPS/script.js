@@ -1,5 +1,7 @@
 let humanScore = 0;
 let computerScore = 0;
+let roundCount = 0;
+const maxRound = 5;
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -24,97 +26,90 @@ function getComputerChoice()
     return comChoice;
 }
 
-// Get player choice by player prompt
-function getHumanChoice()
-{
-    let userInput = "";
-
-    let rockBtn     = document.querySelector("#rock");
-    let paperBtn    = document.querySelector("#paper");
-    let scissorBtn  = document.querySelector("#scissors");
-
-    rockBtn.addEventListener('click', (event) => {
-        console.log('clicked Rock');
-        userInput = "Rock";
-    });
-
-    paperBtn.addEventListener('click', (event) => {
-        console.log('clicked Paper');
-        userInput = "Paper";
-    });
-
-    scissorBtn.addEventListener('click', (event) => {
-        console.log('clicked Scissors');
-        userInput = "Scissors";
-    });
-    
-    const validInputs = ["rock", "paper", "scissors"];
-
-    // if (userInput.toLowerCase() === "rock" || userInput.toLowerCase() === "paper" || userInput.toLowerCase() === "scissors") // Long way
-    if (validInputs.includes(userInput.toLowerCase())) 
-    {
-        console.log(`Player choose: ${userInput}`);
-        return userInput.toLowerCase()
-    }
-    else
-    {
-        console.log("Wrong choice bozo. Default to Rock");
-        return userInput = "rock";
-    }
-}
-
 // Compare Player choices with COM choices
-function playRound(humanChoice, computerChoice) 
+function playRound(humanChoice) 
 {
+    let computerChoice = getComputerChoice();   
     // Draw Condition
     if (humanChoice === computerChoice)
     {
         console.log(`Player: ${humanScore}  COM: ${computerScore}`);
-        result = `It is a draw. Both chose ${humanChoice}`;
     }
     // Winning Condition
     else if ((humanChoice === "rock" && computerChoice === "scissors") || (humanChoice === "paper" && computerChoice === "rock") || (humanChoice === "scissors" && computerChoice === "paper"))
     {
         humanScore++;
         console.log(`Player: ${humanScore}  COM: ${computerScore}`);
-        result = `You Won! ${humanChoice} beats ${computerChoice}`;
     }
     // Losing Condition
     else if ((humanChoice === "rock" && computerChoice === "paper") || (humanChoice === "paper" && computerChoice === "scissors") || (humanChoice === "scissors" && computerChoice === "rock"))
     {
         computerScore++;
         console.log(`Player: ${humanScore}  COM: ${computerScore}`);
-        result = `You Lose! ${computerChoice} beats ${humanChoice}`;
     }
-    return result;
+
+    // // Score based match, check if the score has reach its limits
+    // if (humanScore === 5 || computerScore === 5) 
+    // {
+    //     announceWinner();
+    // }
+
+    // Round based match, check if the round has reach its limits and then check the score
+    roundCount++;
+    if (roundCount == maxRound)
+    {
+        announceWinner();
+    }
 }
 
-function playGame() 
+let rockBtn     = document.querySelector("#rock");
+let paperBtn    = document.querySelector("#paper");
+let scissorBtn  = document.querySelector("#scissors");
+
+rockBtn.addEventListener('click', (event) => {
+    console.log('clicked Rock');
+    playRound("rock");
+});
+
+paperBtn.addEventListener('click', (event) => {
+    console.log('clicked Paper');
+    playRound("paper");
+});
+
+scissorBtn.addEventListener('click', (event) => {
+    console.log('clicked Scissors');
+    playRound("scissors");
+});
+
+function announceWinner() 
 {
-    // Get the human choice and then computer choice, COM can cheat in this part
-    for (let i = 0; i < 5; i++)
+    let resultMatch = document.querySelector("#result");
+
+    // Score based match
+    if (humanScore === 5) 
     {
-        humanSelection = getHumanChoice();
-        computerSelection = getComputerChoice();    
-        alert(playRound(humanSelection, computerSelection));
+        resultMatch.textContent = "You Win";
+    } 
+    else if (computerScore === 5) 
+    {
+        resultMatch.textContent = "You Lose";
     }
 
-    if (humanScore > computerScore)
+    // Round based match
+    if (humanScore > computerScore) 
     {
-        console.debug("You Win");
-        resultMatch = "You Win";
-    }
-    else if (humanScore < computerScore)
+        resultMatch.textContent = "You Win";
+    } 
+    else if (humanScore < computerScore) 
     {
-        console.debug("You Lose");
-        resultMatch = "You Lose";
+        resultMatch.textContent = "You Lose";
     }
     else 
     {
-        console.debug("TIE");
-        resultMatch = "TIE";
+        resultMatch.textContent = "It is a TIE";
     }
-    return resultMatch;
+    // Reset scores for a new game
+    humanScore = 0;
+    computerScore = 0;
+    roundCount = 0;
 }
-
-alert(playGame());
