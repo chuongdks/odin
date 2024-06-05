@@ -1,0 +1,14 @@
+#container {
+    display: flex;
+}
+
+.square {
+    border: 1px solid black;
+    padding: 2px;
+    width: 50px;
+    height: 15px;
+}
+
+.square:hover {
+    background-color: yellow;
+}
