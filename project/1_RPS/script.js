@@ -5,6 +5,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
+// Get COM choice by random number
 function getComputerChoice() 
 {
     switch (getRandomInt(3))
@@ -23,12 +24,33 @@ function getComputerChoice()
     return comChoice;
 }
 
+// Get player choice by player prompt
 function getHumanChoice()
 {
-    let userInput = prompt("Choose: Rock Paper or Scissors","Rock");
-    // if (userInput.toLowerCase() === "rock" || userInput.toLowerCase() === "paper" || userInput.toLowerCase() === "scissors") // Long way
+    let userInput = "";
 
+    let rockBtn     = document.querySelector("#rock");
+    let paperBtn    = document.querySelector("#paper");
+    let scissorBtn  = document.querySelector("#scissors");
+
+    rockBtn.addEventListener('click', (event) => {
+        console.log('clicked Rock');
+        userInput = "Rock";
+    });
+
+    paperBtn.addEventListener('click', (event) => {
+        console.log('clicked Paper');
+        userInput = "Paper";
+    });
+
+    scissorBtn.addEventListener('click', (event) => {
+        console.log('clicked Scissors');
+        userInput = "Scissors";
+    });
+    
     const validInputs = ["rock", "paper", "scissors"];
+
+    // if (userInput.toLowerCase() === "rock" || userInput.toLowerCase() === "paper" || userInput.toLowerCase() === "scissors") // Long way
     if (validInputs.includes(userInput.toLowerCase())) 
     {
         console.log(`Player choose: ${userInput}`);
@@ -41,6 +63,7 @@ function getHumanChoice()
     }
 }
 
+// Compare Player choices with COM choices
 function playRound(humanChoice, computerChoice) 
 {
     // Draw Condition
@@ -68,6 +91,7 @@ function playRound(humanChoice, computerChoice)
 
 function playGame() 
 {
+    // Get the human choice and then computer choice, COM can cheat in this part
     for (let i = 0; i < 5; i++)
     {
         humanSelection = getHumanChoice();
