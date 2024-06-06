@@ -1,4 +1,4 @@
-let maxSquare = 16;
+let maxSquare = 23;
 const container = document.querySelector("#container");
 
 for (let i = 0; i < maxSquare; i++)
@@ -14,4 +14,10 @@ for (let i = 0; i < maxSquare; i++)
     }
 }
 
-
+// Add a single event listener to the container
+container.addEventListener('mouseover', (event) => {
+    if (event.target.classList.contains('square')) 
+    {
+        event.target.style.backgroundColor = "blue";
+    }
+});
