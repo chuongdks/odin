@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-a-Sketch</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
     <h1 style="color: white; background-color: black;text-align: center; margin: 0">Etch-a-Sketch</h1>
-    <button></button>
-    <div id="container">
 
+    <div>
+        <label for="item">Enter the size of your Sketch:</label>
+        <input type="text" name="item" id="item">
+        <button id="changeSize">Change Size</button>
+    </div>
+
+    <div>
+        <label for="item">Click Here to Reset the Board:</label>
+        <button id="reset">Reset Board</button>
+    </div>
+
+    <div id="container">
+        <!-- square goes here -->
     </div>
 
     <script src="script.js"></script>
