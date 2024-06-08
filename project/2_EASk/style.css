@@ -1,5 +1,6 @@
-div {
-    justify-content: center;
+#main-container{
+    display: flex;
+    gap: 50px;
 }
 
 #container {
@@ -8,7 +9,7 @@ div {
     display: flex;
     flex-direction: column;
 
-    margin: 0 auto;
+    /* margin: 0 auto; */
     border: 5px solid red;
 }
 

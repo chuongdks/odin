@@ -7,22 +7,37 @@
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
-    <h1 style="color: white; background-color: black;text-align: center; margin: 0">Etch-a-Sketch</h1>
+    <header>
+        <h1 style="color: white; background-color: #17cbb0; text-align: center; margin: 5px">Etch-a-Sketch</h1>
+    </header>
 
-    <div>
-        <label for="item">Enter the size of your Sketch:</label>
-        <input type="text" name="item" id="item">
-        <button id="changeSize">Change Size</button>
+    <div id="main-container">
+        <div class="config">
+            <div>
+                <label for="item">Enter the size (1 - 100):</label>
+                <input type="text" name="item" id="item">
+                <button id="changeSize">Change Size</button>
+            </div >
+        
+            <div>
+                <label for="item">Reset the Board:</label>
+                <button id="reset">RESET</button>
+            </div>
+        </div>
+    
+        <div id="container">
+            <!-- square goes here -->
+        </div>
+
+        <div>
+
+        </div>
     </div>
 
-    <div>
-        <label for="item">Click Here to Reset the Board:</label>
-        <button id="reset">Reset Board</button>
-    </div>
-
-    <div id="container">
-        <!-- square goes here -->
-    </div>
+    <footer>
+        <p>Author: Chuong Pham<br>
+        Contact: <a href="mailto:pham75@uwindsor.ca">phchuong1998@gmail.com</a></p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
