@@ -23,3 +23,13 @@
     border: 1px solid black;
     flex: 1 1 auto;
 }
+
+#colorButton {
+    display: flex;
+    flex-direction: column;
+}
+
+#colorDialogID {
+    position: absolute;
+    visibility: hidden;
+}
