@@ -1,13 +1,7 @@
-let mode = "rainbow";
-
-let maxSquare = 25;
-const container = document.querySelector("#container");
-
-let isDrawing = false;
-
-let menu = document.querySelector('.config');
-
-let colorBox = document.querySelector("#colorDialogID").value;
+/*
+ETCH-A-SKETCH JS 
+All Reference here: https://stackoverflow.com/questions/58511950/javascript-etch-a-sketch-shading-pen-stops-increasing-opacity-after-another-pen
+*/
 
 // Random color RGB style, use in DrawSquare() function in backgroundColor
 const randomRGBColor = () => 
@@ -32,6 +26,8 @@ function isWhite(color)
 }  
 
 // Add color to a square, is used with mouse event
+let mode = "rainbow";
+
 function DrawSquare(e) 
 {
     switch (mode)
@@ -44,26 +40,23 @@ function DrawSquare(e)
             break;
 
         case "rainbow":
-            if (e.target.classList.contains('square') && isDrawing && isWhite(e.target.style.backgroundColor)) 
+            if (e.target.classList.contains('square') && isDrawing) 
             {
                 e.target.style.backgroundColor = randomRGBColor(); 
             }
             break;
 
-        case "black":
-            let opacityMeter = 0.1;
+        case "black": // Thanks https://stackoverflow.com/questions/58511950/javascript-etch-a-sketch-shading-pen-stops-increasing-opacity-after-another-pen
+            let opacityMeter = Number(e.target.style.opacity);
             if (e.target.classList.contains('square') && isDrawing) 
             {
-                if (e.target.style.backgroundColor === "rgba(0, 0, 0, 0.1)")
-                {
-                    e.target.style.backgroundColor = `rgba(0, 0, 0, 1)`; //${opacityMeter + 0.8})
-                }
+                e.target.style.opacity = (opacityMeter >= 1 ? "1" : opacityMeter + 0.1);
 
-                if (e.target.style.backgroundColor !== "rgb(0, 0, 0)")
-                {
-                    e.target.style.backgroundColor = "rgba(0, 0, 0, 0.1)"; 
-                    opacityMeter = 0.1;
-                }
+                // // Paint it Black (Optional)
+                // if (e.target.style.backgroundColor !== "rgb(0, 0, 0)")
+                // {
+                //     e.target.style.backgroundColor = "rgba(0, 0, 0)"; 
+                // }
             }
             break;
 
@@ -74,10 +67,20 @@ function DrawSquare(e)
             }
             break;
     }
-    console.log(e.target.style.backgroundColor);
+    // console.log(e.target.style.backgroundColor);
+}
+
+// If the color Box change its value, the change the colorBox
+let colorBox = document.querySelector("#colorDialogID").value;
+
+function getColor() 
+{
+    colorBox = document.querySelector("#colorDialogID").value;
 }
 
 // Create the square div by using 2 container instead of 1 container
+const container = document.querySelector("#container");
+
 function createSquare (numberOfSquare)
 {
     // Create the board function
@@ -99,17 +102,19 @@ function createSquare (numberOfSquare)
 }
 
 // Create the default square spaces
+let maxSquare = 25;
 createSquare (maxSquare)
 
 // Color chooser
+let menu = document.querySelector('.config');
+
 menu.addEventListener('click', (event) => 
 {
     switch(event.target.id) 
     {
         case 'color':
             mode = "color";
-            colorBox = document.querySelector("#colorDialogID").value;
-            document.querySelector("#colorDialogID").click();
+            document.querySelector("#colorDialogID").click(); // Open the color Box
             break;
 
         case 'rainbow':
@@ -127,11 +132,13 @@ menu.addEventListener('click', (event) =>
 });
 
 // Add the event listeners for mousedown, mousemove, and mouseup
+let isDrawing = false;
+
 container.addEventListener("mousedown", () => {
     isDrawing = true;
 });
 
-container.addEventListener('mousemove', DrawSquare);
+container.addEventListener('mouseover', DrawSquare);
 container.addEventListener('mousedown', DrawSquare);
 
 window.addEventListener("mouseup", () => {
