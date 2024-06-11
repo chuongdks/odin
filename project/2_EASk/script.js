@@ -50,7 +50,7 @@ function DrawSquare(e)
             let opacityMeter = Number(e.target.style.opacity);
             if (e.target.classList.contains('square') && isDrawing) 
             {
-                e.target.style.opacity = (opacityMeter >= 1 ? "1" : opacityMeter + 0.1);
+                e.target.style.opacity = (opacityMeter == 1 ? "0" : opacityMeter + 0.1);
 
                 // // Paint it Black (Optional)
                 // if (e.target.style.backgroundColor !== "rgb(0, 0, 0)")
