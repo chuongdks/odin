@@ -79,8 +79,14 @@
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // How to choose which element in the page
+    /*
+    _ Step 1: Open the page and open the dev tool
+    _ Step 2: inspect the element that has the class mw-category
+    */
     // const category = document.querySelector('.mw-category');
     // const links = Array.from(category.querySelectorAll('a'));
+    // const links = category.querySelectorAll('a');
     // const de = links
     //             .map(link => link.textContent)
     //             .filter(streetName => streetName.includes('de'));
@@ -88,25 +94,45 @@
     // 7. sort Exercise
     // Sort the people alphabetically by last name
     const alpha = people.sort((lastOne, nextOne) => {
-      const [aLast, aFirst] = lastOne.split(', ');
-      const [bLast, bFirst] = nextOne.split(', ');
-      return aLast > bLast ? 1 : -1;
+      // Debugging: See how the sort() works
+      // console.log(`Last one: ${lastOne}`); 
+      // console.log(`Next One: ${nextOne}`);
+
+      const [aLastName, aFirstName] = lastOne.split(', '); // same as const fullName = lastOne.split(', '); aLast = fullName[0]; aFirst = fullName[1]
+      const [bLastName, bFirstName] = nextOne.split(', ');
+
+      // Debugging: See how array destructing works
+      // console.log(`Last one full name: ${aFirstName} ${aLastName}`); 
+      // console.log(`Next One full name: ${bFirstName} ${bLastName}`);    
+
+      return aLastName > bLastName ? 1 : -1;
     });
-    console.log(alpha);
+    console.table(alpha);
 
     // 8. Reduce Exercise
-    // Sum up the instances of each of these
+    // Sum up the instances of each of these (count the number of car, van,... appear in the array)
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck', 'pogostick'];
 
-    const transportation = data.reduce(function(obj, item) {
-      if (!obj[item]) {
+    const transportation = data.reduce((obj, item) => 
+    {
+      // console.log(item);
+
+      // CHecking if object."item" is there or not, If obj[item] does not exist, it will be 'undefined'
+      if (!obj[item]) 
+      {
         obj[item] = 0;
       }
       obj[item]++;
       return obj;
-    }, {});
+    }, 
+    {
+      // Need to initialize the function reduce() with an object, but since we cant hardcode all the stuff in the array, we have to init with nothing
+      // car: 0,
+      // truck, 0,
+      // walk: 0, ...
+    });
 
-    console.log(transportation);
+    console.table(transportation);
 
   </script>
 </body>
