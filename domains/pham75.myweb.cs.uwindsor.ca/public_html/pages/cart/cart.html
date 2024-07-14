@@ -31,7 +31,7 @@
             <div class="title">Food Menu</div>
 
             <div class="icon-cart">
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="none" viewBox="0 0 24 24">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="35px" height="40px" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
                 </svg> 
 
@@ -39,69 +39,68 @@
             </div>
         </div>
 
+        <!-- https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes -->
         <div class="listProduct">
-            <div class="item">
+            <div class="item" data-id="1">
                 <img src="../../images/fish_sauce_noodle.jpg" alt="Image of FIsh Suace Noodle">
                 <h2>Fish Sauce Noodle</h2>
-                <div class="price">$20 CAD</div>
-                <button >Add to Cart</button>
-            </div>
-            <div class="item">
-                <img src="../../images/fish_sauce_noodle.jpg" alt="Image of FIsh Suace Noodle">
-                <h2>Fish Sauce Noodle</h2>
-                <div class="price">$20 CAD</div>
-                <button >Add to Cart</button>
-            </div>
-            <div class="item">
-                <img src="../../images/fish_sauce_noodle.jpg" alt="Image of FIsh Suace Noodle">
-                <h2>Fish Sauce Noodle</h2>
-                <div class="price">$20 CAD</div>
-                <button >Add to Cart</button>
-            </div>
-            <div class="item">
-                <img src="../../images/fish_sauce_noodle.jpg" alt="Image of FIsh Suace Noodle">
-                <h2>Fish Sauce Noodle</h2>
-                <div class="price">$20 CAD</div>
-                <button >Add to Cart</button>
+                <div class="price">$10</div>
+                <p>Text describing the food. Chuong please add details</p>
+                <button class="addCart">Add to Cart</button>
             </div>
 
-            <div class="item">
-                <img src="../../images/fish_sauce_noodle.jpg" alt="Image of FIsh Suace Noodle">
+            <div class="item" data-id="2">
+                <img src="../../images/poutine.jpg" alt="Image of FIsh Suace Noodle">
                 <h2>Fish Sauce Noodle</h2>
-                <div class="price">$20 CAD</div>
-                <button >Add to Cart</button>
-            </div>
-            <div class="item">
-                <img src="../../images/fish_sauce_noodle.jpg" alt="Image of FIsh Suace Noodle">
-                <h2>Fish Sauce Noodle</h2>
-                <div class="price">$20 CAD</div>
-                <button >Add to Cart</button>
-            </div>
-            <div class="item">
-                <img src="../../images/fish_sauce_noodle.jpg" alt="Image of FIsh Suace Noodle">
-                <h2>Fish Sauce Noodle</h2>
-                <div class="price">$20 CAD</div>
-                <button >Add to Cart</button>
-            </div>
-            <div class="item">
-                <img src="../../images/fish_sauce_noodle.jpg" alt="Image of FIsh Suace Noodle">
-                <h2>Fish Sauce Noodle</h2>
-                <div class="price">$20 CAD</div>
-                <button >Add to Cart</button>
+                <div class="price">$20</div>
+                <p>Text describing the food. Chuong please add details</p>
+                <button class="addCart">Add to Cart</button>
             </div>
 
+            <div class="item" data-id="3">
+                <img src="../../images/broken_rice.jpg" alt="Image of FIsh Suace Noodle">
+                <h2>Fish Sauce Noodle</h2>
+                <div class="price">$30</div>
+                <p>Text describing the food. Chuong please add details</p>
+                <button class="addCart">Add to Cart</button>
+            </div>
 
+            <div class="item" data-id="4">
+                <img src="../../images/i_love_pho_king.jpg" alt="Image of FIsh Suace Noodle">
+                <h2>Fish Sauce Noodle</h2>
+                <div class="price">$40</div>
+                <p>Text describing the food. Chuong please add details</p>
+                <button class="addCart">Add to Cart</button>
+            </div>
+
+            <div class="item" data-id="5">
+                <img src="../../images/poridge.jpg" alt="Image of FIsh Suace Noodle">
+                <h2>Fish Sauce Noodle</h2>
+                <div class="price">$50</div>
+                <p>Text describing the food. Chuong please add details</p>
+                <button class="addCart">Add to Cart</button>
+            </div>
         </div>
     </div>
 
+    <!-- Shopping cart screen -->
     <div class="cartTab">
-        
+        <h1>Shopping Cart</h1>
+
+        <div class="listCart">
+            <!-- list of shopping cart here -->
+        </div>
+
+        <div class="btn">
+            <button id="close">CLOSE</button>
+            <button id="checkOut">CHECK OUT</button>
+        </div>
     </div>
 
     <div class="footer">
-        Copyright @ Group 21 Group Project
+        Copyright @ Group 21 Group Project. Chuong plz add contact number/address/IP address/MAC address/SIN number here
     </div>    
 
-    <script>scr="cart.js"</script>
+    <script src="cart.js" type="application/javascript"></script>
 </body>
 </html>
