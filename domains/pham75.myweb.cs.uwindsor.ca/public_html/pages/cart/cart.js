@@ -16,8 +16,19 @@ let carts = [];
 function init()
 {
     openCart.addEventListener("click", OpenShoppingCart);
+
     closeCart.addEventListener("click", CloseShoppingCart);
+
     listProduct.addEventListener("click", SelectItem);
+
+    listCartHTML.addEventListener("click", SelectVolume);
+
+    // When the site is loaded, check if item in 'carts' is available
+    // if (localStorage.getItem('cart'))
+    // {
+    //     carts = JSON.parse(localStorage.getItem('cart')); // convert back from JSON to Array of Object
+    //     AddToCartHTML();
+    // }
 }
 
 // Opening and cloing the Shopping Cart
@@ -37,7 +48,7 @@ function SelectItem(evt)
     let positionClick = evt.target;
     if (positionClick.classList.contains("addCart"))
     {
-        let product_id = positionClick.parentElement.dataset.id
+        let product_id = positionClick.parentElement.dataset.id;
         // alert(product_id);
         AddToCart(product_id);
     }
@@ -47,53 +58,71 @@ function SelectItem(evt)
 function AddToCart(product_id)
 {
     // Find the first occurance of the product_id
-    let indexOfCart = carts.findIndex((item) => item.product_id == product_id);
+    let indexOfCart = carts.findIndex((cart) => cart.product_id == product_id);
 
     // If no product in cart
     if (carts.length <= 0)
     {
         carts = 
-        [{
-            product_id: product_id,
-            quantity: 1
-        }]
+        [
+            {
+                product_id: product_id,
+                quantity: 1
+            }
+        ]
     }
     // If the product has not been put in the cart yet
     else if (indexOfCart < 0)
     {
-        carts.push
-        ({
+        carts.push(
+        {
             product_id: product_id,
             quantity: 1
-        });
+        }
+        );
     }
     // If the product is already in the cart 
     else 
     {
-        carts[indexOfCart].quantity+=1;
+        carts[indexOfCart].quantity++;
     }
 
     // Add the product to the HTML shopping cart screen
     AddToCartHTML();
 
-    console.log(carts); // debugging
+    // Store the data of cart to a local storage so if page refresh, the data wont be lost 
+    AddCartToMemory();
+
+    // console.log(carts); // debugging
 }
 
 // Add product to the Cart screen in the HTML
 function AddToCartHTML()
 {
+    let totalQuantity = 0;
     listCartHTML.textContent = "";
     if (carts.length > 0)
     {
-        carts.forEach(AddCarts);
+        carts.forEach(cart => 
+        {
+            totalQuantity = AddCarts(cart, totalQuantity);
+        });
     }
+
+    iconCartSpan.textContent = totalQuantity;
+    // console.log(totalQuantity); // Debugging
 }
 
-function AddCarts(cart)
+// for each item of the Object 'carts', add the 'total Quantity' and add the item from 'listProduct' onto the screen
+function AddCarts(cart, totalQuantity)
 {
+    // Add the total Quantity of the shopping cart
+    totalQuantity += cart.quantity;
+    
     // Create new item for the 'listCart'
     let newCart = document.createElement("div");
     newCart.classList.add("item");
+    newCart.dataset.id = cart.product_id; // create a data-id based on the cart product-id
 
     // Find the product in listProduct using cart's product_id
     let product = listProduct.querySelector(`.item[data-id="${cart.product_id}"]`);
@@ -127,5 +156,60 @@ function AddCarts(cart)
 
     // Append all the data to the Shopping cart page
     listCartHTML.appendChild(newCart);
+
+    return totalQuantity;
 }
 
+// Find the data-id of listProduct when clicking the 'addCart' button
+function SelectVolume (evt)
+{
+    let positionClick = evt.target;
+    let type = "minus";
+
+    if (positionClick.classList.contains("minus") || positionClick.classList.contains("plus"))
+    {
+        let product_id = positionClick.parentElement.parentElement.dataset.id; // CALL parent Element TWICE!
+        // alert(product_id);
+
+        // 
+        if (positionClick.classList.contains("plus"))
+        {
+            type = "plus";
+        }
+
+        ChangeQuantity (product_id, type);
+    }
+}
+
+function ChangeQuantity (product_id, type)
+{
+    // Find the first occurance of the product_id
+    let indexOfCart = carts.findIndex((cart) => cart.product_id == product_id);
+    if (indexOfCart >= 0)
+    {
+        switch (type)
+        {
+            case "plus":
+                carts[indexOfCart].quantity++;
+                break;
+
+            case "minus":
+                let valueChangeAfterSubtract = carts[indexOfCart].quantity - 1;
+                if (valueChangeAfterSubtract > 0)
+                {
+                    carts[indexOfCart].quantity--;
+                }
+                else
+                {
+                    carts[indexOfCart].quantity = 0;
+                }
+                
+                break;
+        }
+    }
+}
+// https://www.w3schools.com/jsref/prop_win_localstorage.asp
+function AddCartToMemory()
+{
+    localStorage.setItem('cart', JSON.stringify(carts));
+}
