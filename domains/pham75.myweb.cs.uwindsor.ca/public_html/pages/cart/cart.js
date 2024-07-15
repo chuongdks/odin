@@ -19,6 +19,7 @@ function init()
     listProduct.addEventListener("click", SelectItem);
 
     listCartHTML.addEventListener("click", SelectVolume);
+    listCartHTML.addEventListener("click", SelectCancel);
 
     // When the site is loaded, check if item in 'carts' is available
     // if (localStorage.getItem('cart'))
@@ -132,6 +133,8 @@ function AddCarts(cart, totalQuantity)
 
     // innerHTML data of the 'listCart'
     newCart.innerHTML = `
+    <button class="cancel">X</button>
+
     <div class="image">
         <img src="${productImage}" alt="">
     </div>
@@ -184,7 +187,7 @@ function ChangeQuantity (product_id, type)
 {
     // Find the first occurance of the product_id
     let indexOfCart = carts.findIndex((cart) => cart.product_id == product_id);
-    console.log(indexOfCart);
+    // console.log(indexOfCart);
     if (indexOfCart >= 0)
     {
         switch (type)
@@ -206,6 +209,25 @@ function ChangeQuantity (product_id, type)
                 }
                 break;
         }
+    }
+
+    // Add the product to the HTML shopping cart screen
+    AddToCartHTML();
+
+    // Store the data of cart to a local storage so if page refresh, the data wont be lost 
+    AddCartToMemory();
+}
+
+// Cancel the order when pressing 'X' by splice the carts array 
+function SelectCancel (evt)
+{
+    let positionClick = evt.target;
+    
+    if (positionClick.classList.contains("cancel"))
+    {
+        let product_id = positionClick.parentElement.dataset.id; // CALL parent Element TWICE!
+        let indexOfCart = carts.findIndex((cart) => cart.product_id == product_id);
+        carts.splice(indexOfCart, 1);
     }
 
     // Add the product to the HTML shopping cart screen

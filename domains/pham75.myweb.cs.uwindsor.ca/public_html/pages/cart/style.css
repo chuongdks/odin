@@ -197,7 +197,7 @@ body.showCart .cartTab{
 
 .cartTab .listCart .item {
     display: grid;
-    grid-template-columns: 70px 150px 50px 1fr;
+    grid-template-columns: 20px 70px 120px 50px 1fr;
     gap: 10px;
 
     text-align: center;
@@ -212,7 +212,7 @@ body.showCart .cartTab{
     width: 100%;
 }
 
-.cartTab .listCart .quantity span {
+.cartTab .listCart .item .quantity span {
     display: inline-block;
     width: 25px;
     height: 25px;
