@@ -4,11 +4,8 @@ window.addEventListener("load", init);
 let body = document.querySelector("body");
 let openCart = document.querySelector(".icon-cart");
 let closeCart = document.querySelector("#close");
-
 let listProduct = document.querySelector(".listProduct");
-
 let listCartHTML = document.querySelector(".listCart");
-
 let iconCartSpan = document.querySelector(".icon-cart span")
 
 let carts = [];
@@ -71,7 +68,7 @@ function AddToCart(product_id)
             }
         ]
     }
-    // If the product has not been put in the cart yet
+    // If the product has not been put in the cart yet (findIndex() method returns -1 if no match is found)
     else if (indexOfCart < 0)
     {
         carts.push(
@@ -160,31 +157,34 @@ function AddCarts(cart, totalQuantity)
     return totalQuantity;
 }
 
-// Find the data-id of listProduct when clicking the 'addCart' button
+// Change the 'carts' quantity when clicking plus or minus button 
 function SelectVolume (evt)
 {
     let positionClick = evt.target;
-    let type = "minus";
+    
 
     if (positionClick.classList.contains("minus") || positionClick.classList.contains("plus"))
     {
         let product_id = positionClick.parentElement.parentElement.dataset.id; // CALL parent Element TWICE!
         // alert(product_id);
 
+        let type = "minus";
         // 
         if (positionClick.classList.contains("plus"))
         {
             type = "plus";
         }
 
-        ChangeQuantity (product_id, type);
+        ChangeQuantity(product_id, type);
     }
 }
 
+// ChangeQuantity function (Problem: carts.quantity change but not reflect in HTML side)
 function ChangeQuantity (product_id, type)
 {
     // Find the first occurance of the product_id
     let indexOfCart = carts.findIndex((cart) => cart.product_id == product_id);
+    console.log(indexOfCart);
     if (indexOfCart >= 0)
     {
         switch (type)
@@ -202,12 +202,19 @@ function ChangeQuantity (product_id, type)
                 else
                 {
                     carts[indexOfCart].quantity = 0;
+                    // carts.splice(indexOfCart,1);
                 }
-                
                 break;
         }
     }
+
+    // Add the product to the HTML shopping cart screen
+    AddToCartHTML();
+
+    // Store the data of cart to a local storage so if page refresh, the data wont be lost 
+    AddCartToMemory();
 }
+
 // https://www.w3schools.com/jsref/prop_win_localstorage.asp
 function AddCartToMemory()
 {
