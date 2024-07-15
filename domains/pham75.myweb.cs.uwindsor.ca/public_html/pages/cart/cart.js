@@ -22,11 +22,11 @@ function init()
     listCartHTML.addEventListener("click", SelectCancel);
 
     // When the site is loaded, check if item in 'carts' is available
-    // if (localStorage.getItem('cart'))
-    // {
-    //     carts = JSON.parse(localStorage.getItem('cart')); // convert back from JSON to Array of Object
-    //     AddToCartHTML();
-    // }
+    if (localStorage.getItem('cart'))
+    {
+        carts = JSON.parse(localStorage.getItem('cart')); // convert back from JSON to Array of Object
+        AddToCartHTML();
+    }
 }
 
 // Opening and cloing the Shopping Cart
@@ -91,7 +91,7 @@ function AddToCart(product_id)
     // Store the data of cart to a local storage so if page refresh, the data wont be lost 
     AddCartToMemory();
 
-    // console.log(carts); // debugging
+    console.log(carts); // debugging to send to the back-end
 }
 
 // Add product to the Cart screen in the HTML
