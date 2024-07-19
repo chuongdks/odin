@@ -23,7 +23,7 @@ $CFG->db_pass = 'password';
 
 # Special database "admin" security settings...
 $CFG->db_admin_permit_create_drop = FALSE;
-$CFG->db_admin_only_allow_ip = '70.25.8.171'; // 
+$CFG->db_admin_only_allow_ip = '172.22.144.22'; // 
 
 # e.g., Special email support address...
 $CFG->emailaddr_support = 'pham75@uwindsor.ca';

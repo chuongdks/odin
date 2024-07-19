@@ -1,19 +1,19 @@
 window.addEventListener("load", init);
 
 // Global variable
-let body = document.querySelector("body");
-let openCart = document.querySelector(".icon-cart");
-let closeCart = document.querySelector("#close");
-let listProduct = document.querySelector(".listProduct");
-let listCartHTML = document.querySelector(".listCart");
-let iconCartSpan = document.querySelector(".icon-cart span")
+let body            = document.querySelector("body");
+let openCart        = document.querySelector(".icon-cart");
+let closeCart       = document.querySelector("#close");
+let listProduct     = document.querySelector(".listProduct");
+let listCartHTML    = document.querySelector(".listCart");
+let iconCartSpan    = document.querySelector(".icon-cart span")
+let checkOut        = document.querySelector("#checkOut")
 
 let carts = [];
 
 function init()
 {
     openCart.addEventListener("click", OpenShoppingCart);
-
     closeCart.addEventListener("click", CloseShoppingCart);
 
     listProduct.addEventListener("click", SelectItem);
@@ -21,10 +21,12 @@ function init()
     listCartHTML.addEventListener("click", SelectVolume);
     listCartHTML.addEventListener("click", SelectCancel);
 
+    checkOut.addEventListener("click", CheckOut);
+
     // When the site is loaded, check if item in 'carts' is available
     if (localStorage.getItem('cart'))
     {
-        carts = JSON.parse(localStorage.getItem('cart')); // convert back from JSON to Array of Object
+        carts = JSON.parse(localStorage.getItem('cart')); // convert back from JSON String to Array of Object
         AddToCartHTML();
     }
 }
@@ -91,7 +93,7 @@ function AddToCart(product_id)
     // Store the data of cart to a local storage so if page refresh, the data wont be lost 
     AddCartToMemory();
 
-    console.log(carts); // debugging to send to the back-end
+    // console.log(carts); // debugging to send to the back-end
 }
 
 // Add product to the Cart screen in the HTML
@@ -204,7 +206,7 @@ function ChangeQuantity (product_id, type)
                 }
                 else
                 {
-                    carts[indexOfCart].quantity = 0;
+                    carts[indexOfCart].quantity = 1;
                     // carts.splice(indexOfCart,1);
                 }
                 break;
@@ -240,5 +242,45 @@ function SelectCancel (evt)
 // https://www.w3schools.com/jsref/prop_win_localstorage.asp
 function AddCartToMemory()
 {
-    localStorage.setItem('cart', JSON.stringify(carts));
+    localStorage.setItem('cart', JSON.stringify(carts)); // convert from a JavaScript array to JSON string
 }
+
+function CheckOut()
+{
+    let cartsJSON = JSON.stringify(carts); // convert from a JavaScript array to JSON string
+
+    console.log(cartsJSON);
+
+
+
+    // jQuery method but for some reason myweb dont like this, it wont even change the code
+    // $.post(
+    //     'cart.php',
+    //     { data: cartsJSON },
+    //     function(data, status) 
+    //     {
+    //         console.log("Response from server: " + data + "\nStatus: " + status); 
+    //     }
+    // )
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200)
+        {
+            console.log("Response from server:", xhr.responseText); // Log the response from PHP
+            carts.splice(0);
+            // Add the product to the HTML shopping cart screen
+            AddToCartHTML();
+
+            // Store the data of cart to a local storage so if page refresh, the data wont be lost 
+            AddCartToMemory();
+        }
+    };
+
+    xhr.open("POST", "cart.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("data=" + cartsJSON); // Send data to PHP
+}
+
+    // console.log(JSON.parse(cartsJSON));
