@@ -1,4 +1,6 @@
 <?php
+session_start(); // Start the session for the order_number
+
 // Database connection details
 $servername = "localhost";
 $username = "pham75_group-project-shopping-carts"; // Replace with a user that has privileges
@@ -18,15 +20,23 @@ try {
         // Get the JSON data
         $jsonData = $_POST['data'];
 
-        // Decode the JSON data to a PHP array
+        // Decode the JSON data to a PHP array by setting the 2nd parameter to TRUE
         $carts = json_decode($jsonData, true);
 
         // Check if the JSON decoding was successful
         if ($carts !== null) 
         {
-            // Track order number
-            $order_number++;
+            // Initialize order_number in session if not set
+            if (!isset($_SESSION['order_number'])) {
+                $_SESSION['order_number'] = 0;
+            }
 
+            // Increment order_number
+            $_SESSION['order_number']++;
+
+            // Get the current order number
+            $order_number = $_SESSION['order_number'];
+            
             // Prepare SQL statement
             $stmt = $conn->prepare("INSERT INTO `cart-items` (order_number, product_id, quantity) VALUES (:order_number, :product_id, :quantity)");
 
