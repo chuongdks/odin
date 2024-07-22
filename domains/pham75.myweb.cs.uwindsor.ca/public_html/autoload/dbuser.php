@@ -26,7 +26,7 @@ ZZEOF;
     }
 
     // extend and implement
-    public function admin_destroy_all_structures()
+    public function admin_destroy_db()
     {
         if (!$this->admin_permit_create_drop())
             throw new Exception('Database DROPs are prohibited by admin.');

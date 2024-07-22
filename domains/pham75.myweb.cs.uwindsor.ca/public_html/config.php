@@ -19,7 +19,7 @@ $CFG->session_timeout = 60*10; // in seconds
 $CFG->db_dsn = 'mysql:host=localhost;dbname=pham75_comp3340-project-shopping-carts';
 
 $CFG->db_user = 'pham75_comp3340-project-shopping-carts';
-$CFG->db_pass = 'password';
+$CFG->db_pass = 'Truong!2345';
 
 # Special database "admin" security settings...
 $CFG->db_admin_permit_create_drop = FALSE;

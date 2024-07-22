@@ -21,9 +21,15 @@ body{
     }
 
         .logo {
+            display: flex;
             color: #f9faf8;
             font-size: 24px;
             font-weight: 700;
+            gap: 5px
+        }
+        .logo img{
+            width: 40px;
+            height: 30px;
         }
 
         ul {
@@ -78,8 +84,8 @@ body{
         }
 
         .header-2-image img {
-            height: auto;
-            width: 600px;
+            width: 100%;
+            height: 100%;
         }
 
 button {
@@ -113,12 +119,12 @@ button {
 
         .content-1-info {
             max-width: 180px;
-
             font-size: 18px;
         }
 
             .box {
-                border-radius: 25px;
+                background-color: black;
+                /* border-radius: 25px; */
                 border: 5px solid #3882f6;
                 width: 180px;
                 height: 180px; 
@@ -130,9 +136,8 @@ button {
             }
 
             .box img {
-                height: 165px;
-                width: 165px;
-                object-fit: cover;
+                height: 100%;
+                width: 100%;
             }
 
             .box-info {
@@ -194,6 +199,31 @@ button {
             font-size: 20px;
             font-weight: bold;
         }
+
+.content-4 {
+    background-color: #e5e7eb;
+    padding: 50px 100px;
+    text-align: center;
+}
+
+.content-4-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    text-align: left;
+}
+
+.content-4-container .contact{
+    background-color: #ffffff76;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.content-4-container .schedule{
+    background-color: #ffffff76;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
 
 .footer {
     background-color: #1f2937;

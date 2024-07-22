@@ -250,7 +250,7 @@ function CheckOut()
     let cartsJSON = JSON.stringify(carts); // convert from a JavaScript array to JSON string
 
     console.log(cartsJSON);
-
+    // console.log(JSON.parse(cartsJSON));
 
 
     // jQuery method but for some reason myweb dont like this, it wont even change the code
@@ -265,6 +265,10 @@ function CheckOut()
 
     let xhr = new XMLHttpRequest();
 
+    xhr.open("POST", "test.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("data=" + cartsJSON); // Send data to PHP
+
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200)
         {
@@ -278,9 +282,6 @@ function CheckOut()
         }
     };
 
-    xhr.open("POST", "cart.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("data=" + cartsJSON); // Send data to PHP
+
 }
 
-    // console.log(JSON.parse(cartsJSON));
