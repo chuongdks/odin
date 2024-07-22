@@ -1,9 +1,10 @@
 <?php
 // Database connection details
 $servername = "localhost";
-$username = "pham75_group-project-shopping-carts"; // Replace with a user that has admin privileges
+$username = "pham75_group-project-shopping-carts"; // Replace with a user that has privileges
 $password = "kJ84nt8MrgJNhbHWgbXs"; // Replace with the correct password
 $dbname = "pham75_group-project-shopping-carts";
+$order_number = 0;
 
 try {
     // Create connection
@@ -21,18 +22,19 @@ try {
         $carts = json_decode($jsonData, true);
 
         // Check if the JSON decoding was successful
-        if ($carts !== null) {
+        if ($carts !== null) 
+        {
             // Track order number
-            $order_number = 0;
+            $order_number++;
 
             // Prepare SQL statement
-            $stmt = $conn->prepare("INSERT INTO `cart_items` (order_number, product_id, quantity) VALUES (:order_number, :product_id, :quantity)");
+            $stmt = $conn->prepare("INSERT INTO `cart-items` (order_number, product_id, quantity) VALUES (:order_number, :product_id, :quantity)");
 
             // Process each cart item
-            foreach ($carts as $cart) {
+            foreach ($carts as $cart) 
+            {
                 $product_id = $cart['product_id'];
                 $quantity = $cart['quantity'];
-                $order_number++;
 
                 // Bind parameters and execute the statement
                 $stmt->bindParam(':order_number', $order_number);
@@ -40,7 +42,7 @@ try {
                 $stmt->bindParam(':quantity', $quantity);
                 $stmt->execute();
 
-                echo "Order Number: " . $order_number . " - Product ID: " . $product_id . " Quantity: " . $quantity . "\n";
+                echo "Order Number: " . $order_number . " - Product ID: " . $product_id . " Quantity: " . $quantity . "\n"; // Nothing to do with database, send info back to JS consolse
             }
         } 
         else 

@@ -265,7 +265,7 @@ function CheckOut()
 
     let xhr = new XMLHttpRequest();
 
-    xhr.open("POST", "test.php", true);
+    xhr.open("POST", "cart.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("data=" + cartsJSON); // Send data to PHP
 
