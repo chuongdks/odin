@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+    <div class="main-header">
+        <div class="header-1">
+
+            <div class="logo">
+                <img src="../../images/food-icon.png">
+                Mr World Wide Restaurant
+            </div>
+
+            <ul class="links">
+                <li><a href="../../index.html" target="_blank" rel="noopener noreferrer">HOME</a></li>
+                <li><a href="../cart/cart.html"target="_blank" rel="noopener noreferrer">MENU N ORDER</a></li>
+                <li><a href="./reviews.html">REVIEW</a></li>
+                <li><a href="https://www.youtube.com/watch?v=tvkxupwbFLk" target="_blank" rel="noopener noreferrer">ABOUT US</a></li>
+                <li><a href="../../index.html#contact" target="_blank" rel="noopener noreferrer">CONTACT</a></li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="review-content">
+        <h1 class="title">Customer Reviews</h1>
+
+        <div class="rating-summary">
+            <h2>Customer Rating</h2>
+            <div class="average-rating">
+                <span id="averageRating">4.3</span> average based on <span id="totalReviews">3</span> reviews.
+            </div>
+            <div class="rating-breakdown">
+                <div class="rating-bar">
+                    <span>1 star</span>
+                    <div class="bar-container">
+                        <div class="bar-5" style="width: 67%;"></div>
+                    </div>
+                    <span id="ratingCount5">2</span>
+                </div>
+                <div class="rating-bar">
+                    <span>2 star</span>
+                    <div class="bar-container">
+                        <div class="bar-4" style="width: 33%;"></div>
+                    </div>
+                    <span id="ratingCount4">1</span>
+                </div>
+                <div class="rating-bar">
+                    <span>3 star</span>
+                    <div class="bar-container">
+                        <div class="bar-3" style="width: 0%;"></div>
+                    </div>
+                    <span id="ratingCount3">0</span>
+                </div>
+                <div class="rating-bar">
+                    <span>4 star</span>
+                    <div class="bar-container">
+                        <div class="bar-2" style="width: 0%;"></div>
+                    </div>
+                    <span id="ratingCount2">0</span>
+                </div>
+                <div class="rating-bar">
+                    <span>5 star</span>
+                    <div class="bar-container">
+                        <div class="bar-1" style="width: 0%;"></div>
+                    </div>
+                    <span id="ratingCount1">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-form">
+            <h2 class="form-title">Write a Review</h2>
+
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="review">Review:</label>
+                    <textarea id="review" name="review" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating:</label>
+                    <div class="rating">
+                        <input type="radio" id="star1" name="rating" value="1" required><label for="star1">&#9733;</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3">&#9733;</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4">&#9733;</label>
+                        <input type="radio" id="star5" name="rating" value="5"><label for="star5">&#9733;</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-button">Submit Review</button>
+            </form>
+
+        </div>
+
+        <div class="reviews-container" id="reviewsContainer">
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-author">Steve Jobs</div>
+                    <div class="review-stars">
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                </div>
+                <div class="review-text">I like this place! Highly recommend.</div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-author">Bill Gates</div>
+                    <div class="review-stars">
+                        <span class="star">&#9734;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                </div>
+                <div class="review-text">Delicious food. Will come back again!</div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-author">Mark Zuckerberg</div>
+                    <div class="review-stars">
+                        <span class="star">&#9734;</span>
+                        <span class="star">&#9734;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                        <span class="star">&#9733;</span>
+                    </div>
+                </div>
+                <div class="review-text">Awesome service, great food, bad price.</div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="footer">
+        Copyright @ Group 21 Group Project
+    </div>
+
+</body>
+</html>

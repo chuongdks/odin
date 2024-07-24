@@ -7,9 +7,9 @@ $message = $_POST['message'];
 
 
 $servername = "localhost";
-$username = "zhou4o_comp3340_group";
-$password = "w4CscNr2Va8KsjCW46un";
-$dbname = "zhou4o_comp3340_group";
+$username = "pham75_group-project-shopping-carts";
+$password = "kJ84nt8MrgJNhbHWgbXs";
+$dbname = "pham75_group-project-shopping-carts";
 
 try {
    
