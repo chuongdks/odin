@@ -3,8 +3,8 @@ session_start(); // Start the session for the order_number
 
 // Database connection details
 $servername = "localhost";
-$username = "pham75_group-project-shopping-carts"; // Replace with a user that has privileges
-$password = "kJ84nt8MrgJNhbHWgbXs"; // Replace with the correct password
+$username = "pham75_group-project-shopping-carts"; 
+$password = "kJ84nt8MrgJNhbHWgbXs"; 
 $dbname = "pham75_group-project-shopping-carts";
 $order_number = 0;
 

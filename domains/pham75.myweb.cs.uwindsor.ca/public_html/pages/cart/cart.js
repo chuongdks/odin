@@ -252,17 +252,6 @@ function CheckOut()
     console.log(cartsJSON);
     // console.log(JSON.parse(cartsJSON));
 
-
-    // jQuery method but for some reason myweb dont like this, it wont even change the code
-    // $.post(
-    //     'cart.php',
-    //     { data: cartsJSON },
-    //     function(data, status) 
-    //     {
-    //         console.log("Response from server: " + data + "\nStatus: " + status); 
-    //     }
-    // )
-
     let xhr = new XMLHttpRequest();
 
     xhr.open("POST", "cart.php", true);
