@@ -8,11 +8,11 @@ let listProduct     = document.querySelector(".listProduct");
 let listCartHTML    = document.querySelector(".listCart");
 let iconCartSpan    = document.querySelector(".icon-cart span")
 let checkOut        = document.querySelector("#checkOut")
+let totalAmount     = document.querySelector("#totalAmount");
 
 let carts = [];
 
-function init()
-{
+function init() {
     openCart.addEventListener("click", OpenShoppingCart);
     closeCart.addEventListener("click", CloseShoppingCart);
 
@@ -24,47 +24,38 @@ function init()
     checkOut.addEventListener("click", CheckOut);
 
     // When the site is loaded, check if item in 'carts' is available
-    if (localStorage.getItem('cart'))
-    {
+    if (localStorage.getItem('cart')) {
         carts = JSON.parse(localStorage.getItem('cart')); // convert back from JSON String to Array of Object
         AddToCartHTML();
     }
 }
 
-// Opening and cloing the Shopping Cart
-function OpenShoppingCart()
-{
+// Opening and closing the Shopping Cart
+function OpenShoppingCart() {
     body.classList.toggle("showCart");
 }
 
-function CloseShoppingCart()
-{
+function CloseShoppingCart() {
     body.classList.toggle("showCart");
 }
 
 // Find the data-id of listProduct when clicking the 'addCart' button
-function SelectItem(evt)
-{
+function SelectItem(evt) {
     let positionClick = evt.target;
-    if (positionClick.classList.contains("addCart"))
-    {
+    if (positionClick.classList.contains("addCart")) {
         let product_id = positionClick.parentElement.dataset.id;
-        // alert(product_id);
         AddToCart(product_id);
     }
 }
 
 // Add product to the global 'carts' Object
-function AddToCart(product_id)
-{
-    // Find the first occurance of the product_id
+function AddToCart(product_id) {
+    // Find the first occurrence of the product_id
     let indexOfCart = carts.findIndex((cart) => cart.product_id == product_id);
 
     // If no product in cart
-    if (carts.length <= 0)
-    {
-        carts = 
-        [
+    if (carts.length <= 0) {
+        carts = [
             {
                 product_id: product_id,
                 quantity: 1
@@ -72,50 +63,42 @@ function AddToCart(product_id)
         ]
     }
     // If the product has not been put in the cart yet (findIndex() method returns -1 if no match is found)
-    else if (indexOfCart < 0)
-    {
-        carts.push(
-        {
+    else if (indexOfCart < 0) {
+        carts.push({
             product_id: product_id,
             quantity: 1
-        }
-        );
+        });
     }
     // If the product is already in the cart 
-    else 
-    {
+    else {
         carts[indexOfCart].quantity++;
     }
 
     // Add the product to the HTML shopping cart screen
     AddToCartHTML();
 
-    // Store the data of cart to a local storage so if page refresh, the data wont be lost 
+    // Store the data of cart to a local storage so if page refresh, the data won't be lost 
     AddCartToMemory();
-
-    // console.log(carts); // debugging to send to the back-end
 }
 
 // Add product to the Cart screen in the HTML
-function AddToCartHTML()
-{
+function AddToCartHTML() {
     let totalQuantity = 0;
+    let totalPrice = 0;
     listCartHTML.textContent = "";
-    if (carts.length > 0)
-    {
-        carts.forEach(cart => 
-        {
+    if (carts.length > 0) {
+        carts.forEach(cart => {
             totalQuantity = AddCarts(cart, totalQuantity);
+            totalPrice += UpdateTotalAmount(cart);
         });
     }
 
     iconCartSpan.textContent = totalQuantity;
-    // console.log(totalQuantity); // Debugging
+    totalAmount.textContent = totalPrice.toFixed(2);
 }
 
 // for each item of the Object 'carts', add the 'total Quantity' and add the item from 'listProduct' onto the screen
-function AddCarts(cart, totalQuantity)
-{
+function AddCarts(cart, totalQuantity) {
     // Add the total Quantity of the shopping cart
     totalQuantity += cart.quantity;
     
@@ -146,7 +129,7 @@ function AddCarts(cart, totalQuantity)
     </div>
 
     <div class="totalPrice">
-        $${priceNumber * cart.quantity}
+        $${(priceNumber * cart.quantity).toFixed(2)}
     </div>
 
     <div class="quantity">
@@ -162,21 +145,23 @@ function AddCarts(cart, totalQuantity)
     return totalQuantity;
 }
 
+// Calculate and update the total amount
+function UpdateTotalAmount(cart) {
+    let product = listProduct.querySelector(`.item[data-id="${cart.product_id}"]`);
+    let productPrice = product.querySelector(".price").textContent;
+    let priceNumber = Number(productPrice.slice(1));
+    return priceNumber * cart.quantity;
+}
+
 // Change the 'carts' quantity when clicking plus or minus button 
-function SelectVolume (evt)
-{
+function SelectVolume(evt) {
     let positionClick = evt.target;
-    
 
-    if (positionClick.classList.contains("minus") || positionClick.classList.contains("plus"))
-    {
+    if (positionClick.classList.contains("minus") || positionClick.classList.contains("plus")) {
         let product_id = positionClick.parentElement.parentElement.dataset.id; // CALL parent Element TWICE!
-        // alert(product_id);
-
         let type = "minus";
-        // 
-        if (positionClick.classList.contains("plus"))
-        {
+        
+        if (positionClick.classList.contains("plus")) {
             type = "plus";
         }
 
@@ -184,30 +169,22 @@ function SelectVolume (evt)
     }
 }
 
-// ChangeQuantity function (Problem: carts.quantity change but not reflect in HTML side)
-function ChangeQuantity (product_id, type)
-{
-    // Find the first occurance of the product_id
+// ChangeQuantity function
+function ChangeQuantity(product_id, type) {
+    // Find the first occurrence of the product_id
     let indexOfCart = carts.findIndex((cart) => cart.product_id == product_id);
-    // console.log(indexOfCart);
-    if (indexOfCart >= 0)
-    {
-        switch (type)
-        {
+    if (indexOfCart >= 0) {
+        switch (type) {
             case "plus":
                 carts[indexOfCart].quantity++;
                 break;
 
             case "minus":
                 let valueChangeAfterSubtract = carts[indexOfCart].quantity - 1;
-                if (valueChangeAfterSubtract > 0)
-                {
+                if (valueChangeAfterSubtract > 0) {
                     carts[indexOfCart].quantity--;
-                }
-                else
-                {
+                } else {
                     carts[indexOfCart].quantity = 1;
-                    // carts.splice(indexOfCart,1);
                 }
                 break;
         }
@@ -216,17 +193,15 @@ function ChangeQuantity (product_id, type)
     // Add the product to the HTML shopping cart screen
     AddToCartHTML();
 
-    // Store the data of cart to a local storage so if page refresh, the data wont be lost 
+    // Store the data of cart to a local storage so if page refresh, the data won't be lost 
     AddCartToMemory();
 }
 
-// Cancel the order when pressing 'X' by splice the carts array 
-function SelectCancel (evt)
-{
+// Cancel the order when pressing 'X' by splicing the carts array 
+function SelectCancel(evt) {
     let positionClick = evt.target;
     
-    if (positionClick.classList.contains("cancel"))
-    {
+    if (positionClick.classList.contains("cancel")) {
         let product_id = positionClick.parentElement.dataset.id; // CALL parent Element TWICE!
         let indexOfCart = carts.findIndex((cart) => cart.product_id == product_id);
         carts.splice(indexOfCart, 1);
@@ -235,22 +210,20 @@ function SelectCancel (evt)
     // Add the product to the HTML shopping cart screen
     AddToCartHTML();
 
-    // Store the data of cart to a local storage so if page refresh, the data wont be lost 
+    // Store the data of cart to a local storage so if page refresh, the data won't be lost 
     AddCartToMemory();
 }
 
-// https://www.w3schools.com/jsref/prop_win_localstorage.asp
-function AddCartToMemory()
-{
+// Store cart data in local storage
+function AddCartToMemory() {
     localStorage.setItem('cart', JSON.stringify(carts)); // convert from a JavaScript array to JSON string
 }
 
-function CheckOut()
-{
+// Handle checkout process
+function CheckOut() {
     let cartsJSON = JSON.stringify(carts); // convert from a JavaScript array to JSON string
 
     console.log(cartsJSON);
-    // console.log(JSON.parse(cartsJSON));
 
     let xhr = new XMLHttpRequest();
 
@@ -259,18 +232,15 @@ function CheckOut()
     xhr.send("data=" + cartsJSON); // Send data to PHP
 
     xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200)
-        {
+        if (xhr.readyState == 4 && xhr.status == 200) {
             console.log("Response from server:", xhr.responseText); // Log the response from PHP
             carts.splice(0);
+            
             // Add the product to the HTML shopping cart screen
             AddToCartHTML();
-
-            // Store the data of cart to a local storage so if page refresh, the data wont be lost 
+            
+            // Store the data of cart to a local storage so if page refresh, the data won't be lost 
             AddCartToMemory();
         }
-    };
-
-
+    }
 }
-
