@@ -8,7 +8,7 @@
 //     append the <h1> and <p> to it before adding it to the container.
 
 // your JavaScript file
-// All this bull shit just to add a child div with class content and some text under the id: container 
+// Add a child div with class content and some text under the id: container 
 const container = document.querySelector("#container");
 
 const content = document.createElement("div");
