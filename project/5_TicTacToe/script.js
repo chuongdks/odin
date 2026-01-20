@@ -1,3 +1,8 @@
+/*
+Console version testing:
+GameController.playRound(0) (Player One takes top-left)
+GameController.playRound(4) (Player Two takes center)
+*/
 // Game Board module, IFFE "instance" 
 const Gameboard = (() => {
   // array of spot on the board
@@ -43,8 +48,10 @@ const GameController = (() => {
 
   const getActivePlayer = () => activePlayer;
 
+  // 
   const checkWinner = () => {
     const board = Gameboard.getBoard();
+
     const winConditions = [
       [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
       [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
@@ -64,7 +71,8 @@ const GameController = (() => {
     if (!board.includes("")) return "draw";
     return null;
   };
-
+ 
+  // 
   const playRound = (index) => {
     if (gameOver) return;
 
@@ -73,7 +81,6 @@ const GameController = (() => {
       
       if (result) {
         gameOver = true;
-        Gameboard.resetBoard()
         console.log(result === "draw" ? "It's a tie!" : `${activePlayer.name} wins!`);
       } 
       else 
@@ -89,13 +96,68 @@ const GameController = (() => {
     console.table(Gameboard.getBoard()); // Visual helper in console
   };
 
-  return { playRound, getActivePlayer };
+  // 
+  function resetGame() {
+    gameOver = false;
+    activePlayer = players[0];
+  }
+
+  return { playRound, getActivePlayer, checkWinner, resetGame };
 })();
 
-/*
-GameController.playRound(0) (Player One takes top-left)
+// Display Controller module
+const displayController = (() => {
+  const boardDiv = document.querySelector("#game-board");
+  const messageElement = document.querySelector("#message");
+  const restartBtn = document.querySelector("#restart-btn");
 
-GameController.playRound(4) (Player Two takes center)
+  // draws the board from scratch
+  const render = () => {
+    boardDiv.innerHTML = ""; // Clear the board
+    const board = Gameboard.getBoard();
 
-Keep calling playRound(index) until the console logs a winner.
-*/
+    board.forEach((marker, index) => {
+      const cell = document.createElement("div");
+      cell.classList.add("cell");
+      cell.dataset.index = index; // link HTML part to game board index via data-index
+      cell.textContent = marker;
+      cell.addEventListener("click", handleClick);
+      boardDiv.appendChild(cell);
+    });
+  };
+
+  // interactable version of calling GameController.playRound(index)
+  const handleClick = (event) => {
+    const selectedIndex = event.target.dataset.index;
+    
+    // Call playRound like in Console version
+    GameController.playRound(selectedIndex);
+    
+    // Refresh the screen
+    render();
+    updateMessage();
+  };
+
+  const updateMessage = () => {
+    // pull the status from GameController
+    const winner = GameController.checkWinner();
+    if (winner) {
+        messageElement.textContent = winner === "draw" ? "It's a Tie!" : `${GameController.getActivePlayer().name} Wins!`;
+    } else {
+        messageElement.textContent = `${GameController.getActivePlayer().marker}'s Turn`;
+    }
+  };
+
+  restartBtn.addEventListener("click", () => {
+    Gameboard.resetBoard();
+    GameController.resetGame();
+    render();
+    updateMessage();
+  });
+
+  // Run once to show the initial empty board
+  render();
+
+  return { render };
+})();
+
