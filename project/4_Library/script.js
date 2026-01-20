@@ -36,7 +36,7 @@ function addBookToLibrary(title, author, page, readFlag) {
     return newBook;
 }
 
-// loop myLibrary and display each Book
+// loop myLibrary, display each Book and functionality for the 2 button on book grid
 function displayBooks() {
     const libraryGrid = document.querySelector("#library-grid")
     // 1. Clear list everytime new book is added
@@ -65,9 +65,7 @@ function displayBooks() {
         // 1. remove book button
         const removeBtn = bookCard.querySelector('.remove-btn');
         removeBtn.addEventListener('click', () => {
-            // removeBook(book.id);
-            const cardToRemove = document.querySelector(`[data-id="${book.id}"]`);
-            cardToRemove.remove();
+            removeBook(book.id);
         });
 
         // 2. Toggle Read Status Logic
