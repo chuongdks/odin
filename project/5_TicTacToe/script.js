@@ -48,7 +48,7 @@ const GameController = (() => {
 
   const getActivePlayer = () => activePlayer;
 
-  // 
+  // logic to check for winner (checking 3 rows)
   const checkWinner = () => {
     const board = Gameboard.getBoard();
 
@@ -61,7 +61,7 @@ const GameController = (() => {
     for (let condition of winConditions) {
       // This is Destructing in case u forgot wtf is this
       const [a, b, c] = condition;  
-      // Logic to check if 3 in a row is match (BUT NOT EMPTY SPOT OFC)
+      // check 3 in a row win condition (a == b == c)
       if (board[a] && board[a] === board[b] && board[a] === board[c]) {
         return board[a]; // Returns 'X' or 'O'
       }
@@ -72,7 +72,7 @@ const GameController = (() => {
     return null;
   };
  
-  // 
+  // Play round logic. Works on console
   const playRound = (index) => {
     if (gameOver) return;
 
@@ -96,7 +96,7 @@ const GameController = (() => {
     console.table(Gameboard.getBoard()); // Visual helper in console
   };
 
-  // 
+  // reset game state
   function resetGame() {
     gameOver = false;
     activePlayer = players[0];
@@ -105,7 +105,7 @@ const GameController = (() => {
   return { playRound, getActivePlayer, checkWinner, resetGame };
 })();
 
-// Display Controller module
+// Display Controller module, connect and display to HTML part
 const displayController = (() => {
   const boardDiv = document.querySelector("#game-board");
   const messageElement = document.querySelector("#message");
@@ -138,6 +138,7 @@ const displayController = (() => {
     updateMessage();
   };
 
+  // play a round but display on HTML only
   const updateMessage = () => {
     // pull the status from GameController
     const winner = GameController.checkWinner();
