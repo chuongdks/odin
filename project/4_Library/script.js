@@ -4,36 +4,47 @@ const showButton = document.getElementById('add-book-btn');
 const cancelButton = document.getElementById('cancel-btn');
 const bookForm = document.getElementById('book-form');
 
-// Book Constructor 
-function BookConstructor(title, author, pages, readFlag) {
-    if (!new.target) {
-    throw Error("You must use the 'new' operator to call the constructor");
+class Book {
+    constructor(title, author, pages, readFlag) 
+    {
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.readFlag = readFlag;
     }
 
-    // Construct properties
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.readFlag = readFlag;
+    info() {
+        const status = this.readFlag ? "already read" : "not read yet";
+        return `${this.title} by ${this.author}, ${this.pages} pages, ${status}`;
+    }
+
+    toggleReadStatus() {
+        this.readFlag = !this.readFlag;
+    }
 }
 
-// Prototype methods for Book
-BookConstructor.prototype.info = () => {
-    const status = this.readFlag ? "already read" : "not read yet";
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${status}`;
-}
-
-BookConstructor.prototype.toggleReadStatus = function() {
-    this.readFlag = !this.readFlag;
-};
-
+/* LIBRARY METHODS USING BOOK CLASS */
 // add Book to myLibrary array
 function addBookToLibrary(title, author, page, readFlag) {
     // take params, create a book then store it in the array
-    const newBook = new BookConstructor(title, author, page, readFlag);
+    const newBook = new Book(title, author, page, readFlag);
     myLibrary.push(newBook);
     return newBook;
+}
+
+// remove book helper method
+function removeBook(id) {
+    // Find the index of the book with the matching ID
+    const index = myLibrary.findIndex(book => book.id === id);
+    
+    if (index !== -1) {
+        // Remove 1 item at that index
+        myLibrary.splice(index, 1);
+    }
+    
+    // Refresh the display
+    displayBooks();
 }
 
 // loop myLibrary, display each Book and functionality for the 2 button on book grid
@@ -78,9 +89,9 @@ function displayBooks() {
         // add bookCard to libraryGrid
         libraryGrid.appendChild(bookCard);
     }
-
 }
 
+/* EVENT LISTENERS for HTML stufff */
 // Open the modal dialog
 showButton.addEventListener('click', () => {
   dialog.showModal();
@@ -113,26 +124,3 @@ bookForm.addEventListener('submit', (event) => {
   bookForm.reset();
   dialog.close();
 });
-
-// remove book helper method
-function removeBook(id) {
-    // Find the index of the book with the matching ID
-    const index = myLibrary.findIndex(book => book.id === id);
-    
-    if (index !== -1) {
-        // Remove 1 item at that index
-        myLibrary.splice(index, 1);
-    }
-    
-    // Refresh the display
-    displayBooks();
-}
-
-// Usage:
-// // Manually seed the library
-// addBookToLibrary('The Hobbit', 'J.R.R. Tolkien', 295, false);
-// addBookToLibrary('Atomic Habits', 'James Clear', 320, true);
-// addBookToLibrary('Great Expectations', 'Charles Dickens', 544, false);
-
-// // Call the function to render them to the screen
-// displayBooks();
