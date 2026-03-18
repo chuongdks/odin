@@ -1,4 +1,3 @@
-// home-page.js
 /**
 <div class="homepage-container">
     <h1>Horsing Around</h1>
@@ -21,13 +20,15 @@
     </div>
 </div>
  */
+// home-page.js
+import "./home.css";
 
 export function loadHomePage() {
     const content = document.querySelector("#content");
 
     // Create the container
     const container = document.createElement("div");
-    container.classList.add("homepage-container");
+    container.classList.add("homepage-container", "fade-in"); // Added fade-in here
 
     // Create Headline
     const headline = document.createElement("h1");

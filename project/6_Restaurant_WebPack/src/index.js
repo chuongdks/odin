@@ -1,7 +1,8 @@
 // index.js
-// import "./styles.css";
+import "./styles.css";
 import { loadHomePage } from "./home-page.js";
 import { loadMenuPage } from "./menu-page.js";
+import { loadContactPage } from "./contact-page.js";
 
 // render the homepage on initial load
 loadHomePage();
@@ -10,19 +11,27 @@ loadHomePage();
 const tabMap = {
     "home-btn": loadHomePage,
     "menu-btn": loadMenuPage,
-    // "about-btn": loadContactPage
+    "about-btn": loadContactPage
 };
 
 // Single Event Listener on the Parent (Nav)
 const nav = document.querySelector("nav");
 
 nav.addEventListener("click", (event) => {
-    const targetId = event.target.id;
+    if (event.target.tagName !== "BUTTON") return;
 
-    // Check if the clicked element is one of our navigation buttons
+    const targetId = event.target.id;
     if (tabMap[targetId]) {
+        // Remove 'active' class from all buttons in the nav
+        document.querySelectorAll("nav button").forEach(btn => 
+            btn.classList.remove("active")
+        );
+
+        // Add 'active' class to the clicked button
+        event.target.classList.add("active");
+
         clearContent();
-        tabMap[targetId](); // Call the mapped function
+        tabMap[targetId]();
     }
 });
 
