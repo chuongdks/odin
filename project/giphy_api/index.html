@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GIPHY API</title>
+</head>
+<body>
+    <div class="controls">
+        <input type="text" id="search-input" placeholder="Search for a GIF...">
+        <button id="search-btn">Search</button>
+    </div>
+
+    <div id="status-area"></div>
+    <img id="gif-display" src="#">
+    
+    <script>
+        const img = document.querySelector('#gif-display');
+        const input = document.querySelector('#search-input');
+        const btn = document.querySelector('#search-btn');
+        const statusArea = document.querySelector('#status-area');
+        const apiKey = 'XrHTATxFzx3Ek9cL6SqVUs9epafwg0FR';
+
+        async function getGif(query) {
+            // 1. Reset state
+            statusArea.textContent = "Fetching...";
+            const url = `https://api.giphy.com/v1/gifs/translate?api_key=${apiKey}&s=${query}`;
+
+            try {
+                const response = await fetch(url);
+
+                // 2. Handle non-200 status codes (404, 500, etc.)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const responseData = await response.json();
+
+                // 3. Handle cases where the API responds but finds nothing
+                if (!responseData.data || Array.isArray(responseData.data) && responseData.data.length === 0) {
+                    throw new Error("No GIF found for that search term.");
+                }
+
+                // Using optional chaining to prevent crashes if the path is missing
+                img.src = responseData.data.images.original.url;
+                statusArea.textContent = "";
+
+            } catch (error) {
+                // 4. This block catches BOTH manual throws and network failures
+                console.error("Diagnostic Error:", error.message);
+                statusArea.innerHTML = `<span class="error-message">Error: ${error.message}</span>`;
+                img.src = "#";
+            }
+        }
+
+        btn.addEventListener('click', () => {
+            const searchTerm = input.value.trim();
+            if (searchTerm) getGif(searchTerm);
+        });
+
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') btn.click();
+        });
+
+        // Initial Load
+        getGif('uma-musume');
+    </script>
+</body>
+</html>

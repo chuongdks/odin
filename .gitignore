@@ -26,3 +26,7 @@ dist-ssr
 # other stuff
 NodeJS/
 React/
+nextjs-workshop-main/
+my-next-app/
+node_modules
+dist
