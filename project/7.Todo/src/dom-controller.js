@@ -1,5 +1,5 @@
 // dom-controller.js
-export function renderProject(project) {
+export function renderProject(project) {    // project: Project
     const content = document.querySelector("#content");
     content.innerHTML = `<h1>${project.name}</h1>`;
 
@@ -31,4 +31,33 @@ export function renderProject(project) {
     });
 
     content.appendChild(todoList);
+}
+
+// dom-controller.js
+export function renderSidebar(library, currentProject) {    // libreary: ProjectLibrary
+    const sidebar = document.querySelector("#sidebar");
+    sidebar.innerHTML = "<h3>Projects</h3>";
+
+    const projectList = document.createElement("ul");
+    library.projects.forEach((project) => {
+        const li = document.createElement("li");
+        li.textContent = project.name;
+        li.classList.add("project-item");
+        
+        // Highlight the one we are currently looking at
+        if (project === currentProject) {
+            li.classList.add("active-project");
+        }
+
+        li.dataset.name = project.name;
+        projectList.appendChild(li);
+    });
+
+    sidebar.appendChild(projectList);
+
+    // Add a button to create new projects
+    const addProjectBtn = document.createElement("button");
+    addProjectBtn.id = "add-project-btn";
+    addProjectBtn.textContent = "+ New Project";
+    sidebar.appendChild(addProjectBtn);
 }

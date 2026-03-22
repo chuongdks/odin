@@ -1,39 +1,126 @@
-body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
-#content { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-.todo-list { list-style: none; padding: 0; }
-.todo-item { 
-    display: flex; justify-content: space-between; 
-    padding: 10px; border-bottom: 1px solid #eee; align-items: center;
+/* --- LAYOUT LOGIC --- */
+:root {
+    --primary-color: #2c3e50;
+    --accent-color: #3498db;
+    --bg-color: #f8f9fa;
+    --text-color: #333;
 }
-.priority-high { border-left: 5px solid red; }
-.priority-medium { border-left: 5px solid orange; }
-.priority-low { border-left: 5px solid green; }
-.delete-btn { background: #ff4444; color: white; border: none; padding: 5px 10px; cursor: pointer; }
 
-/* The dark background that covers the whole screen */
+* { box-sizing: border-box; }
+
+body { 
+    margin: 0; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-color);
+    display: grid;
+    /* Two rows: 1st is 60px (Header), 2nd takes the rest (1fr) */
+    grid-template-rows: 60px 1fr;
+    /* Two columns: 1st is 250px (Sidebar), 2nd takes the rest (1fr) */
+    grid-template-columns: 250px 1fr;
+    height: 100vh;
+}
+
+#header {
+    grid-column: 1 / -1; /* Stretch across all columns */
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#sidebar {
+    background: white;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#content {
+    background: white;
+    margin: 20px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    overflow-y: auto; /* Scroll if list is long */
+}
+
+/* --- UI ELEMENTS --- */
+
+/* Project List in Sidebar */
+.project-item {
+    list-style: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.project-item:hover { background: #e9ecef; }
+.active-project { 
+    background: var(--accent-color) !important; 
+    color: white; 
+}
+
+/* Todo Items */
+.todo-item { 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 15px; 
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    align-items: center;
+    transition: transform 0.1s;
+}
+
+.todo-item:hover { transform: scale(1.01); }
+
+/* Priority Borders */
+.priority-high { border-left: 6px solid #e74c3c; }
+.priority-medium { border-left: 6px solid #f39c12; }
+.priority-low { border-left: 6px solid #2ecc71; }
+
+.delete-btn { 
+    background: #ff7675; 
+    color: white; 
+    border: none; 
+    padding: 8px 12px; 
+    border-radius: 4px;
+    cursor: pointer; 
+}
+
+/* Buttons */
+#add-project-btn, #open-add-modal {
+    padding: 10px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* --- MODAL (Kept from before) --- */
 #modal-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex; justify-content: center; align-items: center;
     z-index: 1000;
 }
 
-/* The actual white box for the form */
 #modal-content {
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 400px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    padding: 25px;
+    border-radius: 12px;
+    width: 450px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* The magic class that hides everything */
-.hidden {
-    display: none !important;
-}
+.hidden { display: none !important; }

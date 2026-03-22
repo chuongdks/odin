@@ -26,3 +26,19 @@ export class Project {
         this.todos = this.todos.filter(t => t.id !== todoId);
     }
 }
+
+export class ProjectLibrary {
+    constructor() {
+        this.projects = [];
+    }
+
+    addProject(name) {
+        const newProject = new Project(name);
+        this.projects.push(newProject);
+        return newProject;
+    }
+
+    deleteProject(index) {
+        this.projects.splice(index, 1);
+    }
+}

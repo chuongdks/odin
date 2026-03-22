@@ -1,22 +1,23 @@
-import { Project } from "./todo-logic.js";
-import { renderProject } from "./dom-controller.js";
+import { renderProject, renderSidebar } from "./dom-controller.js";
 import { createTodoForm } from "./form-controller.js";
+import { ProjectLibrary } from "./todo-logic.js";
 import "./style.css";
 
 // 1. Initial Setup
 const overlay = document.querySelector("#modal-overlay");
 const modalContent = document.querySelector("#modal-content");
 
-const defaultProject = new Project("My Tasks");
+const myLibrary = new ProjectLibrary();
+const defaultProject = myLibrary.addProject("My Tasks");
 defaultProject.addTodo("Finish Odin Project", "Test", "2026-03-25", "High");
 defaultProject.addTodo("Buy Groceries", "Test", "2026-03-20", "Medium");
 
 let currentProject = defaultProject;
 
 // 2. Initial Render
-renderProject(defaultProject);
+updateDisplay();
 
-// 3. Global Event Listener (for things outside #content)
+// 3. Global Event Listener 
 document.addEventListener("click", (e) => {
     // Close modal logic (Needs to be global)
     if (e.target.id === "cancel-btn" || e.target === overlay) { // e.target === overlay
@@ -77,6 +78,23 @@ document.querySelector("#content").addEventListener("click", (e) => {
     }
 });
 
+// 5. Sidebar Click Listener
+document.querySelector("#sidebar").addEventListener("click", (e) => {
+    if (e.target.classList.contains("project-item")) {
+        const projectName = e.target.dataset.name;
+        currentProject = myLibrary.projects.find(p => p.name === projectName);
+        updateDisplay();
+    }
+
+    if (e.target.id === "add-project-btn") {
+        const newName = prompt("Enter project name:");
+        if (newName) {
+            myLibrary.addProject(newName);
+            updateDisplay();
+        }
+    }
+});
+
 // Function to close the modal
 function closeModal() {
     overlay.classList.add("hidden");
@@ -95,4 +113,10 @@ function openModal(todo = null) {
     
     modalContent.appendChild(form);
     overlay.classList.remove("hidden");
+}
+
+// 
+function updateDisplay() {
+    renderSidebar(myLibrary, currentProject);
+    renderProject(currentProject);
 }
