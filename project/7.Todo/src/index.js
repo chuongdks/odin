@@ -1,18 +1,24 @@
 import { renderProject, renderSidebar } from "./dom-controller.js";
 import { createTodoForm } from "./form-controller.js";
 import { ProjectLibrary } from "./todo-logic.js";
+import { loadLibrary, saveLibrary } from "./storage.js";
 import "./style.css";
 
 // 1. Initial Setup
 const overlay = document.querySelector("#modal-overlay");
 const modalContent = document.querySelector("#modal-content");
 
-const myLibrary = new ProjectLibrary();
-const defaultProject = myLibrary.addProject("My Tasks");
-defaultProject.addTodo("Finish Odin Project", "Test", "2026-03-25", "High");
-defaultProject.addTodo("Buy Groceries", "Test", "2026-03-20", "Medium");
+// Load Library from local Storage or create a default one
+let myLibrary = loadLibrary();
 
-let currentProject = defaultProject;
+if (!myLibrary) {
+    myLibrary = new ProjectLibrary();
+    const defaultProject = myLibrary.addProject("My Tasks");
+    defaultProject.addTodo("Finish Odin Project", "Logic check", "2026-03-25", "High");
+    defaultProject.addTodo("Buy Groceries", "Test", "2026-03-20", "Medium");
+}
+
+let currentProject = myLibrary.projects[0];
 
 // 2. Initial Render
 updateDisplay();
@@ -52,7 +58,7 @@ document.addEventListener("submit", (e) => {
         }
 
         // 3. Update the UI and Clean up
-        renderProject(currentProject);
+        updateDisplay();
         closeModal();
     }
 });
@@ -119,4 +125,5 @@ function openModal(todo = null) {
 function updateDisplay() {
     renderSidebar(myLibrary, currentProject);
     renderProject(currentProject);
+    saveLibrary(myLibrary);
 }

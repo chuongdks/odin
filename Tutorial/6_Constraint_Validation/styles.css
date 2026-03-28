@@ -1,0 +1,17 @@
+/* Only show errors once the user has interacted with the field */
+input.touched:invalid {
+  border: 2px solid #ff4d4d;
+  background-color: #fff2f2;
+}
+
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
+  min-height: 1em; /* Prevents layout jump */
+}
+
+input:focus {
+  outline: 2px solid #4d94ff;
+}

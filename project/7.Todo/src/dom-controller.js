@@ -34,7 +34,7 @@ export function renderProject(project) {    // project: Project
 }
 
 // dom-controller.js
-export function renderSidebar(library, currentProject) {    // libreary: ProjectLibrary
+export function renderSidebar(library, currentProject) {    // libreary: ProjectLibrary, currentProject: Project
     const sidebar = document.querySelector("#sidebar");
     sidebar.innerHTML = "<h3>Projects</h3>";
 

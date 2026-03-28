@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App API</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <form id="weather-form" novalidate>
+        <fieldset>
+            <legend>Weather Search</legend>
+            <div class="search-wrap">
+                <input type="text" id="location" required placeholder="Enter City (e.g., London, UK)">
+                <button type="submit" id="search-btn">Search</button>
+            </div>
+            <span class="error-msg" aria-live="polite"></span>
+        </fieldset>
+    </form>
+
+    <div id="loader" class="hidden">Loading weather data...</div>
+
+    <section id="weather-display" class="hidden">
+        <h2 id="city-name"></h2>
+        <div id="temp-display"></div>
+        <button id="unit-toggle">Switch to °C</button>
+        <p id="description"></p>
+        <img id="weather-gif" src="#" alt="Weather mood">
+        <img id="icon-slot" src="#" alt="Weather icon">
+    </section>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Document</title>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <form id="registration-form" novalidate>
+    <fieldset>
+      <legend>Create Your Account</legend>
+
+      <div class="field-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required placeholder="name@example.com">
+        <span class="error-message" aria-live="polite"></span>
+      </div>
+
+      <div class="field-group">
+        <label for="country">Country</label>
+        <input type="text" id="country" required minlength="2">
+        <span class="error-message" aria-live="polite"></span>
+      </div>
+
+      <div class="field-group">
+        <label for="zip">Postal Code</label>
+        <input type="text" id="zip" required pattern="\d{5}">
+        <span class="error-message" aria-live="polite"></span>
+      </div>
+
+      <div class="field-group">
+        <label for="pwd">Password</label>
+        <input type="password" id="pwd" required minlength="8">
+        <span class="error-message" aria-live="polite"></span>
+      </div>
+
+      <div class="field-group">
+        <label for="pwd-confirm">Confirm Password</label>
+        <input type="password" id="pwd-confirm" required>
+        <span class="error-message" aria-live="polite"></span>
+      </div>
+
+      <button type="submit">Submit Registration</button>
+    </fieldset>
+</form>
+</body>
+</html>
