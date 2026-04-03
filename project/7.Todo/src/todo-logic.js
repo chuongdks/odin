@@ -7,6 +7,11 @@ export class Todo {
         this.priority = priority;
         // Notes and CheckList?
         this.id = Date.now() + Math.random(); // Unique ID for finding it later
+        this.complete = false; 
+    }
+
+    toggleStatus() {
+        this.complete = !this.complete;
     }
 }
 

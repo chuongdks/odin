@@ -20,7 +20,7 @@ export function loadLibrary() {
         projData.todos.forEach(tData => {
             const todo = new Todo(tData.title, tData.description, tData.dueDate, tData.priority);
             todo.id = tData.id
-            // todo.complete = tData.complete
+            todo.complete = tData.complete
             project.todos.push(todo)
         })
 

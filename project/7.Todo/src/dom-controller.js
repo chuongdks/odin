@@ -17,7 +17,7 @@ export function renderProject(project) {    // project: Project
         
         li.innerHTML = `
             <div class="todo-info">
-                <input type="checkbox" ${todo.complete ? "checked" : ""}>
+                <input type="checkbox" data-id="${todo.id}" ${todo.complete ? "checked" : ""}>
                 <span class="title ${todo.complete ? 'done' : ''}">${todo.title}</span>
                 <span class="date">${todo.dueDate}</span>
             </div>
@@ -60,4 +60,11 @@ export function renderSidebar(library, currentProject) {    // libreary: Project
     addProjectBtn.id = "add-project-btn";
     addProjectBtn.textContent = "+ New Project";
     sidebar.appendChild(addProjectBtn);
+
+    // Clear data button, dev only
+    const clearBtn = document.createElement("button");
+    clearBtn.id = "clear-data-btn";
+    clearBtn.textContent = "Clear All Data";
+    clearBtn.style.marginTop = "auto"; // Pushes it to the bottom of the sidebar
+    sidebar.appendChild(clearBtn);
 }

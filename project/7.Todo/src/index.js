@@ -1,6 +1,6 @@
 import { renderProject, renderSidebar } from "./dom-controller.js";
 import { createTodoForm } from "./form-controller.js";
-import { ProjectLibrary } from "./todo-logic.js";
+import { ProjectLibrary, Project, Todo } from "./todo-logic.js";
 import { loadLibrary, saveLibrary } from "./storage.js";
 import "./style.css";
 
@@ -66,14 +66,20 @@ document.addEventListener("submit", (e) => {
 // 4. Content Listener (Specific to the list and adding)
 document.querySelector("#content").addEventListener("click", (e) => {
     const id = parseFloat(e.target.dataset.id);
-    const todo = currentProject.todos.find(t => t.id === id);
+    const todo = !isNaN(id) ? currentProject.todos.find(t => t.id === id) : null;   // ONLY search for the todo if the ID is a valid number
 
     if (e.target.id === "open-add-modal") {
         openModal();
     } 
     else if (e.target.classList.contains("delete-btn")) {
-        currentProject.deleteTodo(id);
-        renderProject(currentProject); // Re-render after logic change
+        if (confirm("Are you sure? This will delete the selected List")) {
+            currentProject.deleteTodo(id);
+            updateDisplay(); // Re-render after logic change
+        }
+    }
+    else if (e.target.type === "checkbox") {
+        todo.toggleStatus();
+        updateDisplay(); // Re-render after logic change
     }
     else if (e.target.classList.contains("edit-btn")) {
         openModal(todo);
@@ -99,6 +105,13 @@ document.querySelector("#sidebar").addEventListener("click", (e) => {
             updateDisplay();
         }
     }
+
+    if (e.target.id === "clear-data-btn") {
+        if (confirm("Are you sure? This will delete all projects and tasks.")) {
+            localStorage.removeItem("todoLibrary");
+            window.location.reload(); // Hard reset the app
+        }
+    }
 });
 
 // Function to close the modal
@@ -107,7 +120,7 @@ function closeModal() {
     modalContent.innerHTML = ""; // Clean up memory
 }
 
-// 
+// Open the Form
 function openModal(todo = null) {
     modalContent.innerHTML = "";
     const form = createTodoForm(todo);
@@ -121,7 +134,7 @@ function openModal(todo = null) {
     overlay.classList.remove("hidden");
 }
 
-// 
+// Update all the display
 function updateDisplay() {
     renderSidebar(myLibrary, currentProject);
     renderProject(currentProject);
